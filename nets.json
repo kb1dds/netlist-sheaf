@@ -1,0 +1,54 @@
+{
+    "A": {
+	"data_dimension" : 1,
+	"bounds" : "[(0,1)]",
+	"connections" : [
+	       { "part" : "AND2",
+		 "port" : "IN1"}
+	   ]
+    },
+    "B": {
+	"data_dimension" : 1,
+	"bounds" : "[(0,1)]",
+	"connections" : [
+	    { "part" : "AND2",
+	      "port" : "IN2"}
+	]
+    },
+    "C" : {
+	"data_dimension" : 1,
+	"bounds" : "[(0,1)]",
+	"connections" : [
+    	    { "part" : "OR2",
+	      "port" : "IN1"}
+	]
+    },
+    "E" : {
+	"data_dimension" : 1,
+	"bounds" : "[(0,1)]",
+	"connections" : [
+	    { "part" : "AND2",
+	      "port" : "OUT"},
+	    { "part" : "NOT",
+	      "port" : "IN"}
+	]
+    },
+    "F" : {
+	"data_dimension" : 1,
+	"bounds" : "[(0,1)]",
+	"connections" : [
+	    { "part" : "NOT",
+	      "port" : "OUT"},
+	    { "part" : "OR2",
+	      "port" : "IN2"}
+	]
+    },
+    "Q" : {
+	"data_dimension" : 1,
+	"bounds" : "[(0,1)]",
+	"connections" : [
+	    { "part" : "OR2",
+	      "port" : "OUT"}
+	]
+    }
+}
