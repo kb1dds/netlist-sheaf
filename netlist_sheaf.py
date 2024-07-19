@@ -2,9 +2,13 @@ import numpy as np
 import pysheaf as ps
 
 class NetlistSheaf(ps.Sheaf):
-    def __init__(self, parts, nets):
+    def __init__(self, parts, nets, **kwargs):
         '''
 Construct a netlist sheaf using a dictionary of `parts` and `nets`.  
+Additional optional arguments accepted as `**kwargs`, so that these can be used as parameters as the sheaf is being built.  
+
+> [!CAUTION]
+> This function uses `eval()` to unpack and build Python expressions from strings.  You have been warned; sanitize your input!
 
 Each part is named, and has fields:
 * `data_dimension`, 
@@ -45,7 +49,8 @@ Example
 ...}
 ```
 
-NB: The default behavior is that all parts are optimization cells, and that no nets are optimization cells.
+> [!TIP]
+> The default behavior is that all parts are optimization cells, and that no nets are optimization cells.
         '''
         
         ps.Sheaf.__init__(self)
@@ -55,32 +60,32 @@ NB: The default behavior is that all parts are optimization cells, and that no n
         # First, build the parts (lower level of poset)
         for k,v in parts.items():
             if isinstance(v['data_dimension'],int):
-                self.AddCell(k,
-                             ps.Cell('part',
-                                     dataDimension = v['data_dimension']))
+                ddim = v['data_dimension']
             else:
-                self.AddCell(k,
-                             ps.Cell('part',
-                                     dataDimension = eval(v['data_dimension'])))
+                ddim = eval(v['data_dimension'])
                 
-            self.GetCell(k).SetDataAssignment(ps.Assignment('part',np.zeros((v['data_dimension'],))))
+            self.AddCell(k,
+                         ps.Cell('part',
+                                 dataDimension = ddim))
+                
+            self.GetCell(k).SetDataAssignment(ps.Assignment('part',np.zeros((ddim,))))
             self.GetCell(k).mOptimizationCell = True
 
         # Next, build the nets (upper level of poset)
         for k,v in nets.items():
             if isinstance(v['data_dimension'],int):
-                self.AddCell(k,
-                             ps.Cell('net',
-                                     dataDimension = v['data_dimension']))
+                ddim = v['data_dimension']
             else:
-                self.AddCell(k,
-                             ps.Cell('net',
-                                     dataDimension = eval(v['data_dimension'])))
+                ddim = eval(v['data_dimension'])
+
+            self.AddCell(k,
+                         ps.Cell('net',
+                                 dataDimension = ddim))
             
             try:
                 self.GetCell(k).SetDataAssignment(ps.Assignment('net',eval(v['value'])))
             except KeyError:
-                self.GetCell(k).SetDataAssignment(ps.Assignment('net',np.zeros((v['data_dimension'],))))
+                self.GetCell(k).SetDataAssignment(ps.Assignment('net',np.zeros((ddim,))))
 
             try:
                 self.GetCell(k).mOptimizationCell = (v['optimize']!=0)
