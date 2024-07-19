@@ -1,0 +1,261 @@
+{
+    "SeaIce" : {
+	"data_dimension" : "kwargs['npts']",
+	"optimize" : 1,
+	"connections" : [
+	    { "part" : "SeaIce-block",
+	      "port" : "in"
+	    },
+	    { "part" : "SeaIce-lag",
+	      "port" : "in"
+	    }
+	]
+    },
+    "ColdPool" : {
+	"data_dimension" : "kwargs['npts']",
+	"optimize" : 1,
+	"connections" : [
+	    { "part" : "SeaIce-block",
+	      "port" : "out"
+	    },
+	    { "part" : "ColdPool-block",
+	      "port" : "in"
+	    }
+	]
+    },
+    "Copepods" : {
+	"data_dimension" : "kwargs['npts']",
+	"optimize" : 1,
+	"connections" : [
+	    { "part" : "ColdPool-block",
+	      "port" : "out_copepods"
+	    },
+	    { "part" : "Copepods-block",
+	      "port" : "in"
+	    }
+	]
+    },
+    "Krill" : {
+	"data_dimension" : "kwargs['npts']",
+	"optimize" : 1,
+	"connections" : [
+	    { "part" : "ColdPool-block",
+	      "port" : "out_krill"
+	    },
+	    { "part" : "Krill-block",
+	      "port" : "in"
+	    }
+	]
+    },
+    "Diet_Cop" : {
+	"data_dimension" : "kwargs['npts']",
+	"optimize" : 1,
+	"connections" : [
+	    { "part" : "Copepods-block",
+	      "port" : "out"
+	    },
+	    { "part" : "Survival-block",
+	      "port" : "in_copepods"
+	    }
+	]
+    },
+    "Diet_Krill" : {
+	"data_dimension" : "kwargs['npts']",
+	"optimize" : 1,
+	"connections" : [
+	    { "part" : "Krill-block",
+	      "port" : "out"
+	    },
+	    { "part" : "Survival-block",
+	      "port" : "in_krill"
+	    }
+	]
+    },
+    "Spawners" : {
+	"data_dimension" : "kwargs['npts']",
+	"optimize" : 1,
+	"connections" : [
+	    { "part" : "Survival-block",
+	      "port" : "in_spawners"
+	    }
+	]
+    },
+    "Survival" : {
+	"data_dimension" : "kwargs['npts']",
+	"optimize" : 1,
+	"connections" : [
+	    { "part" : "Survival-block",
+	      "port" : "out"
+	    }
+	]
+    },
+    "SeaIce-pc" : {
+	"data_dimension" : 1,
+	"value" : "0.6",
+	"connections" : [
+	    { "part" : "SeaIce-block",
+	      "port" : "pc"
+	    }
+	]
+    },
+    "ColdPoolCopepods-pc" : {
+	"data_dimension" : 1,
+	"value" : "1.79",
+	"connections" : [
+	    { "part" : "ColdPool-block",
+	      "port" : "pc_copepods"
+	    }
+	]
+    },
+    "ColdPoolKrill-pc" : {
+	"data_dimension" : 1,
+	"value" : "0.18",
+	"connections" : [
+	    { "part" : "ColdPool-block",
+	      "port" : "pc_krill"
+	    }
+	]
+    },
+    "Copepods-pc" : {
+	"data_dimension" : 1,
+	"value" : "0.29",
+	"connections" : [
+	    { "part" : "Copepods-block",
+	      "port" : "pc"
+	    }
+	]
+    },
+    "Krill-pc" : {
+	"data_dimension" : 1,
+	"value" : "0.06",
+	"connections" : [
+	    { "part" : "Krill-block",
+	      "port" : "pc"
+	    }
+	]
+    },
+    "DietCop-pc" : {
+	"data_dimension" : 1,
+	"value" : "0.15",
+	"connections" : [
+	    { "part" : "Survival-block",
+	      "port" : "pc_copepods"
+	    }
+	]
+    },
+    "DietKrill-pc" : {
+	"data_dimension" : 1,
+	"value" : "0.13",
+	"connections" : [
+	    { "part" : "Survival-block",
+	      "port" : "pc_krill"
+	    }
+	]
+    },
+    "Spawners-pc" : {
+	"data_dimension" : 1,
+	"value" : "-0.59",
+	"connections" : [
+	    { "part" : "Survival-block",
+	      "port" : "pc_spawners"
+	    }
+	]
+    },
+
+   "SeaIce-lagvar" : {
+       "data_dimension" : "kwargs['npts']",
+       "optimize" : 1,
+	"connections" : [
+	    { "part" : "SeaIce-block",
+	      "port" : "in"
+	    },
+	    { "part" : "SeaIce-lag",
+	      "port" : "out"
+	    }
+	]
+    },
+   "ColdPool-lagvar" : {
+       "data_dimension" : "kwargs['npts']",
+       "optimize" : 1,
+       "connections" : [
+	   { "part" : "ColdPool-block",
+	     "port" : "in"
+	   },
+	   { "part" : "ColdPool-lag",
+	     "port" : "out"
+	   }
+       ]
+    },
+    "Copepods-lagvar" : {
+	"data_dimension" : "kwargs['npts']",
+	"optimize" : 1,
+	"connections" : [
+	    { "part" : "Copepods-block",
+	      "port" : "in"
+	    },
+	    { "part" : "Copepods-lag",
+	      "port" : "out"
+	    }
+	]
+    },
+    "Krill-lagvar" : {
+	"data_dimension" : "kwargs['npts']",
+	"optimize" : 1,
+	"connections" : [
+	    { "part" : "Krill-block",
+	      "port" : "in"
+	    },
+	    { "part" : "Krill-lag",
+	      "port" : "out"
+	    }
+	]
+    },
+   "Diet_Cop-lagvar" : {
+       "data_dimension" : "kwargs['npts']",
+       "optimize" : 1,
+	"connections" : [
+	    { "part" : "Copepods-block",
+	      "port" : "out"
+	    },
+	    { "part" : "Diet_Cop-lag",
+	      "port" : "out"
+	    }
+	]
+    },
+   "Diet_Krill-lagvar" : {
+       "data_dimension" : "kwargs['npts']",
+       "optimize" : 1,
+	"connections" : [
+	    { "part" : "Krill-block",
+	      "port" : "out"
+	    },
+	    { "part" : "Krill-lag",
+	      "port" : "out"
+	    }
+	]
+    },
+   "Spawners-lagvar" : {
+       "data_dimension" : "kwargs['npts']",
+       "optimize" : 1,
+	"connections" : [
+	    { "part" : "Survival-block",
+	      "port" : "in_spawners"
+	    },
+	    { "part" : "Spawners-lag",
+	      "port" : "out"
+	    }
+	]
+    },
+   "Survival-lagvar" : {
+       "data_dimension" : "kwargs['npts']",
+       "optimize" : 1,
+       "connections" : [
+	   { "part" : "Survival-block",
+	     "port" : "out"
+	   },
+	   { "part" : "Survival-lag",
+	     "port" : "out"
+	   }
+       ]
+   }
+}

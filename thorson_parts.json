@@ -1,0 +1,105 @@
+{
+    "SeaIce-block" : {
+	"data_dimension" : "kwargs['npts']+1",
+	"ports" : {
+	    "in" : "lambda x: x[1:]",
+	    "out" : "lambda x: x[0]*x[1:]",
+	    "pc" : "lambda x: x[0]"
+	}
+    },
+    "ColdPool-block" : {
+	"data_dimension" : "kwargs['npts']+2",
+	"ports" : {
+	    "in" : "lambda x: x[2:]",
+	    "out_copepods" : "lambda x: x[0]*x[2:]",
+	    "out_krill" : "lambda x: x[1]*x[2:]",
+	    "pc_copepods" : "lambda x: x[0]",
+	    "pc_krill" : "lambda x: x[1]"
+	}
+    },
+    "Copepods-block" : {
+	"data_dimension" : "kwargs['npts']+1",
+	"ports" : {
+	    "in" : "lambda x: x[1:]",
+	    "out" : "lambda x: x[0]*x[1:]",
+	    "pc" : "lambda x: x[0]"
+	}
+    },
+    "Krill-block" : {
+	"data_dimension" : "kwargs['npts']+1",
+	"ports" : {
+	    "in" : "lambda x: x[1:]",
+	    "out" : "lambda x: x[0]*x[1:]",
+	    "pc" : "lambda x: x[0]"
+	}
+    },
+    "Survival-block" : {
+	"data_dimension" : "3*kwargs['npts']+3",
+	"ports" : {
+	    "pc_copepods" : "lambda x: x[0]",
+	    "pc_krill" : "lambda x: x[1]",
+	    "pc_spawners" : "lambda x: x[2]",
+	    "in_copepods" : "lambda x,npts=kwargs['npts']: x[3:3+npts]",
+	    "in_krill" : "lambda x,npts=kwargs['npts']: x[3+npts:2*npts+3]",
+	    "in_spawners" : "lambda x,npts=kwargs['npts']: x[2*npts+3:3*npts+3]",
+	    "out" : "lambda x,npts=kwargs['npts']: x[0]*x[3:npts+3]+x[1]*x[npts+3:2*npts+3]+x[2]*x[2*npts+3:3*npts+3]"
+	}
+    },
+
+    "SeaIce-lag" : {
+	"data_dimension" : "kwargs['npts']+kwargs['ar']",
+	"ports" : {
+	    "in" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: x[ar:]",
+	    "out" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: np.concatenate((x[ar+1:],[np.sum(x[-ar:]*x[0:ar])]))"
+	}
+    },
+    "ColdPool-lag" : {
+	"data_dimension" : "kwargs['npts']+kwargs['ar']",
+	"ports" : {
+	    "in" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: x[ar:]",
+	    "out" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: np.concatenate((x[ar+1:],[np.sum(x[-ar:]*x[0:ar])]))"
+	}
+    },
+    "Copepods-lag" : {
+	"data_dimension" : "kwargs['npts']+kwargs['ar']",
+	"ports" : {
+	    "in" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: x[ar:]",
+	    "out" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: np.concatenate((x[ar+1:],[np.sum(x[-ar:]*x[0:ar])]))"
+	}
+    },
+    "Krill-lag" : {
+	"data_dimension" : "kwargs['npts']+kwargs['ar']",
+	"ports" : {
+	    "in" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: x[ar:]",
+	    "out" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: np.concatenate((x[ar+1:],[np.sum(x[-ar:]*x[0:ar])]))"
+	}
+    },
+    "Diet_Cop-lag" : {
+	"data_dimension" : "kwargs['npts']+kwargs['ar']",
+	"ports" : {
+	    "in" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: x[ar:]",
+	    "out" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: np.concatenate((x[ar+1:],[np.sum(x[-ar:]*x[0:ar])]))"
+	}
+    },
+    "Diet_Krill-lag" : {
+	"data_dimension" : "kwargs['npts']+kwargs['ar']",
+	"ports" : {
+	    "in" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: x[ar:]",
+	    "out" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: np.concatenate((x[ar+1:],[np.sum(x[-ar:]*x[0:ar])]))"
+	}
+    },
+    "Spawners-lag" : {
+	"data_dimension" : "kwargs['npts']+kwargs['ar']",
+	"ports" : {
+	    "in" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: x[ar:]",
+	    "out" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: np.concatenate((x[ar+1:],[np.sum(x[-ar:]*x[0:ar])]))"
+	}
+    },
+    "Survival-lag" : {
+	"data_dimension" : "kwargs['npts']+kwargs['ar']",
+	"ports" : {
+	    "in" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: x[ar:]",
+	    "out" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: np.concatenate((x[ar+1:],[np.sum(x[-ar:]*x[0:ar])]))"
+	}
+    }
+}
