@@ -11,7 +11,7 @@ Each part is named, and has fields:
 * `bounds` (optional), 
 * `ports`.
 
-The `ports` field is a dictionary naming each port, and associating a string that defines a function for the corresponding restriction map.
+The `ports` field is a dictionary naming each port, and associating a string that defines a function for the corresponding restriction map.  
 
 Example:
 ```
@@ -26,6 +26,8 @@ Example:
 Each net is named, and has fields:
 * `data_dimension`,
 * `bounds` (optional),
+* `value` (optional; NB: parsed with `eval()`),
+* `optimize` (optional; anything not integer `0` is `True`; default = `True`),
 * `connections`.
 Subsequently, `connections` is a list of dictionaries, each one has a `part` and `port` field, which index into the `parts` dictionary above.
 
@@ -42,6 +44,8 @@ Example
     },
 ...}
 ```
+
+NB: The default behavior is that all parts are optimization cells, and that no nets are optimization cells.
         '''
         
         ps.Sheaf.__init__(self)
@@ -50,17 +54,38 @@ Example
 
         # First, build the parts (lower level of poset)
         for k,v in parts.items():
-            self.AddCell(k,
-                         ps.Cell('part',
-                                 dataDimension = int(v['data_dimension'])))
+            if isinstance(v['data_dimension'],int):
+                self.AddCell(k,
+                             ps.Cell('part',
+                                     dataDimension = v['data_dimension']))
+            else:
+                self.AddCell(k,
+                             ps.Cell('part',
+                                     dataDimension = eval(v['data_dimension'])))
+                
             self.GetCell(k).SetDataAssignment(ps.Assignment('part',np.zeros((v['data_dimension'],))))
+            self.GetCell(k).mOptimizationCell = True
 
         # Next, build the nets (upper level of poset)
         for k,v in nets.items():
-            self.AddCell(k,
-                         ps.Cell('net',
-                                 dataDimension = int(v['data_dimension'])))
-            self.GetCell(k).SetDataAssignment(ps.Assignment('net',np.zeros((v['data_dimension'],))))
+            if isinstance(v['data_dimension'],int):
+                self.AddCell(k,
+                             ps.Cell('net',
+                                     dataDimension = v['data_dimension']))
+            else:
+                self.AddCell(k,
+                             ps.Cell('net',
+                                     dataDimension = eval(v['data_dimension'])))
+            
+            try:
+                self.GetCell(k).SetDataAssignment(ps.Assignment('net',eval(v['value'])))
+            except KeyError:
+                self.GetCell(k).SetDataAssignment(ps.Assignment('net',np.zeros((v['data_dimension'],))))
+
+            try:
+                self.GetCell(k).mOptimizationCell = (v['optimize']!=0)
+            except KeyError:
+                pass
 
             # Connect each part in this net
             for vp in v['connections']:
