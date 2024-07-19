@@ -62,11 +62,28 @@ with open('bering_sea.csv') as fp:
 for c in shf.GetCellIndexList():
     shf.MaximallyExtendCell(c)
 
-print(shf.ComputeConsistencyRadius())
+print('===')
+print("Consistency radius before optimization: {}".format(shf.ComputeConsistencyRadius()))
 
+print('Optimizing...')
 shf.FuseAssignment()
 
-print(shf.ComputeConsistencyRadius())
+print("Consistency radius after optimization: {}".format(shf.ComputeConsistencyRadius()))
+
+print('===')
+print("Path coefficients:")
+print('---')
+
+for c in shf.GetCellIndexList():
+    if "-pc" in c:
+        print("{} : {}".format(c,shf.GetCell(c).mDataAssignment.mValue))
+
+print('===')
+print("Autoregressive cofficients:")
+print('---')
+
+for data_name,sheaf_name in names_dict.items():
+    print("{} : {}".format(sheaf_name,shf.GetCell(sheaf_name + "-lag").mDataAssignment.mValue[0:ar]))
 
 years=[startyear + year for year in range(npts)]
 
