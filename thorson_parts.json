@@ -1,48 +1,54 @@
 {
     "SeaIce-block" : {
-	"data_dimension" : "kwargs['npts']+1",
-	"ports" : {
-	    "in" : "lambda x: x[1:]",
-	    "out" : "lambda x: x[0]*x[1:]",
-	    "pc" : "lambda x: x[0]"
-	}
-    },
-    "ColdPool-block" : {
 	"data_dimension" : "kwargs['npts']+2",
 	"ports" : {
 	    "in" : "lambda x: x[2:]",
-	    "out_copepods" : "lambda x: x[0]*x[2:]",
-	    "out_krill" : "lambda x: x[1]*x[2:]",
-	    "pc_copepods" : "lambda x: x[0]",
-	    "pc_krill" : "lambda x: x[1]"
+	    "out" : "lambda x: x[0]+x[1]*x[2:]",
+	    "pc" : "lambda x: x[1]",
+	    "constant" : "lambda x: x[0]"
+	}
+    },
+    "ColdPool-block" : {
+	"data_dimension" : "kwargs['npts']+4",
+	"ports" : {
+	    "in" : "lambda x: x[4:]",
+	    "out_copepods" : "lambda x: x[0]+x[1]*x[4:]",
+	    "out_krill" : "lambda x: x[2]+x[3]*x[4:]",
+	    "pc_copepods" : "lambda x: x[1]",
+	    "pc_krill" : "lambda x: x[3]",
+	    "constant_copepods" : "lambda x: x[0]",
+	    "constant_krill" : "lambda x: x[2]"
 	}
     },
     "Copepods-block" : {
-	"data_dimension" : "kwargs['npts']+1",
+	"data_dimension" : "kwargs['npts']+2",
 	"ports" : {
-	    "in" : "lambda x: x[1:]",
-	    "out" : "lambda x: x[0]*x[1:]",
-	    "pc" : "lambda x: x[0]"
+	    "in" : "lambda x: x[2:]",
+	    "out" : "lambda x: x[0]+x[1]*x[2:]",
+	    "pc" : "lambda x: x[1]",
+	    "constant" : "lambda x: x[0]"
 	}
     },
     "Krill-block" : {
-	"data_dimension" : "kwargs['npts']+1",
+	"data_dimension" : "kwargs['npts']+2",
 	"ports" : {
-	    "in" : "lambda x: x[1:]",
-	    "out" : "lambda x: x[0]*x[1:]",
-	    "pc" : "lambda x: x[0]"
+	    "in" : "lambda x: x[2:]",
+	    "out" : "lambda x: x[0]+x[1]*x[2:]",
+	    "pc" : "lambda x: x[1]",
+	    "constant" : "lambda x: x[0]"
 	}
     },
     "Survival-block" : {
-	"data_dimension" : "3*kwargs['npts']+3",
+	"data_dimension" : "3*kwargs['npts']+4",
 	"ports" : {
-	    "pc_copepods" : "lambda x: x[0]",
-	    "pc_krill" : "lambda x: x[1]",
-	    "pc_spawners" : "lambda x: x[2]",
-	    "in_copepods" : "lambda x,npts=kwargs['npts']: x[3:3+npts]",
-	    "in_krill" : "lambda x,npts=kwargs['npts']: x[3+npts:2*npts+3]",
-	    "in_spawners" : "lambda x,npts=kwargs['npts']: x[2*npts+3:3*npts+3]",
-	    "out" : "lambda x,npts=kwargs['npts']: x[0]*x[3:npts+3]+x[1]*x[npts+3:2*npts+3]+x[2]*x[2*npts+3:3*npts+3]"
+	    "pc_copepods" : "lambda x: x[1]",
+	    "pc_krill" : "lambda x: x[2]",
+	    "pc_spawners" : "lambda x: x[3]",
+	    "constant" : "lambda x: x[0]",
+	    "in_copepods" : "lambda x,npts=kwargs['npts']: x[4:4+npts]",
+	    "in_krill" : "lambda x,npts=kwargs['npts']: x[4+npts:2*npts+4]",
+	    "in_spawners" : "lambda x,npts=kwargs['npts']: x[2*npts+4:3*npts+4]",
+	    "out" : "lambda x,npts=kwargs['npts']: x[0]+x[1]*x[4:npts+4]+x[2]*x[npts+4:2*npts+4]+x[3]*x[2*npts+4:3*npts+4]"
 	}
     },
 
