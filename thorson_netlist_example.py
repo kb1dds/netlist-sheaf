@@ -79,6 +79,17 @@ for c in shf.GetCellIndexList():
         print("{} : {}".format(c,shf.GetCell(c).mDataAssignment.mValue))
 
 print('===')
+print("Offsets:")
+print('---')
+
+for c in shf.GetCellIndexList():
+    if c == 'ColdPool-block':
+        print("{} : {}".format(c,shf.GetCell(c).mDataAssignment.mValue[0:2]))
+    elif "-block" in c:
+        print("{} : {}".format(c,shf.GetCell(c).mDataAssignment.mValue[0]))
+
+
+print('===')
 print("Autoregressive cofficients:")
 print('---')
 
