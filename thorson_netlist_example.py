@@ -30,7 +30,7 @@ nets=json.load(open('thorson_nets.json'))
 
 startyear = 1963
 npts = 61
-ar = 1
+ar = 2
 shf = netlist_sheaf.NetlistSheaf(parts,nets,npts=npts,ar=ar)
 
 #pos=nx.layout.spring_layout(shf)
