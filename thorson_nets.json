@@ -171,7 +171,7 @@
     },
 
    "SeaIce-lagvar" : {
-       "data_dimension" : "kwargs['npts']",
+       "data_dimension" : "kwargs['npts']-kwargs['ar']",
        "optimize" : 1,
 	"connections" : [
 	    { "part" : "SeaIce-block",
@@ -183,7 +183,7 @@
 	]
     },
    "ColdPool-lagvar" : {
-       "data_dimension" : "kwargs['npts']",
+       "data_dimension" : "kwargs['npts']-kwargs['ar']",
        "optimize" : 1,
        "connections" : [
 	   { "part" : "ColdPool-block",
@@ -195,7 +195,7 @@
        ]
     },
     "Copepods-lagvar" : {
-	"data_dimension" : "kwargs['npts']",
+	"data_dimension" : "kwargs['npts']-kwargs['ar']",
 	"optimize" : 1,
 	"connections" : [
 	    { "part" : "Copepods-block",
@@ -207,7 +207,7 @@
 	]
     },
     "Krill-lagvar" : {
-	"data_dimension" : "kwargs['npts']",
+	"data_dimension" : "kwargs['npts']-kwargs['ar']",
 	"optimize" : 1,
 	"connections" : [
 	    { "part" : "Krill-block",
@@ -219,7 +219,7 @@
 	]
     },
    "Diet_Cop-lagvar" : {
-       "data_dimension" : "kwargs['npts']",
+       "data_dimension" : "kwargs['npts']-kwargs['ar']",
        "optimize" : 1,
 	"connections" : [
 	    { "part" : "Survival-block",
@@ -231,7 +231,7 @@
 	]
     },
    "Diet_Krill-lagvar" : {
-       "data_dimension" : "kwargs['npts']",
+       "data_dimension" : "kwargs['npts']-kwargs['ar']",
        "optimize" : 1,
 	"connections" : [
 	    { "part" : "Survival-block",
@@ -243,7 +243,7 @@
 	]
     },
    "Spawners-lagvar" : {
-       "data_dimension" : "kwargs['npts']",
+       "data_dimension" : "kwargs['npts']-kwargs['ar']",
        "optimize" : 1,
 	"connections" : [
 	    { "part" : "Survival-block",

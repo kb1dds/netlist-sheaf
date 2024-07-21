@@ -50,11 +50,11 @@
 	    "pc_spawners" : "lambda x: x[3]",
 	    "constant" : "lambda x: x[0]",
 	    "in_copepods" : "lambda x,npts=kwargs['npts']: x[4:4+npts]",
-	    "copepods_crop" : "lambda x,ar=kwargs['ar']: x[4+ar:4+npts]",
+	    "copepods_crop" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: x[4+ar:4+npts]",
 	    "in_krill" : "lambda x,npts=kwargs['npts']: x[4+npts:2*npts+4]",
-	    "krill_crop" : "lambda x,ar=kwargs['ar']: x[4+npts+ar:2*npts+4]",
+	    "krill_crop" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: x[4+npts+ar:2*npts+4]",
 	    "in_spawners" : "lambda x,npts=kwargs['npts']: x[2*npts+4:3*npts+4]",
-	    "spawners_crop" : "lambda x,ar=kwargs['ar']: x[2*npts+4+ar:3*npts+4]",
+	    "spawners_crop" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: x[2*npts+4+ar:3*npts+4]",
 	    "out" : "lambda x,npts=kwargs['npts']: x[0]+x[1]*x[4:npts+4]+x[2]*x[npts+4:2*npts+4]+x[3]*x[2*npts+4:3*npts+4]"
 	}
     },
