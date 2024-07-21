@@ -89,13 +89,15 @@ for c in shf.GetCellIndexList():
     elif "-block" in c:
         print("{} : {}".format(c,shf.GetCell(c).mDataAssignment.mValue[0]))
 
-
 print('===')
 print("Autoregressive cofficients:")
 print('---')
 
 for data_name,sheaf_name in names_dict.items():
-    print("{} : {}".format(sheaf_name,shf.GetCell(sheaf_name + "-lag").mDataAssignment.mValue[0:ar]))
+    try:
+        print("{} : {}".format(sheaf_name,shf.GetCell(sheaf_name + "-lag").mDataAssignment.mValue[0:ar]))
+    except KeyError:
+        pass
 
 
 print('')
