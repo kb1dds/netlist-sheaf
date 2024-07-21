@@ -1,5 +1,7 @@
 import numpy as np
 import pysheaf as ps
+import scipy
+import scipy.linalg
 
 class NetlistSheaf(ps.Sheaf):
     def __init__(self, parts, nets, **kwargs):
