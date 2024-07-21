@@ -175,7 +175,7 @@
        "optimize" : 1,
 	"connections" : [
 	    { "part" : "SeaIce-block",
-	      "port" : "in"
+	      "port" : "crop"
 	    },
 	    { "part" : "SeaIce-lag",
 	      "port" : "out"
@@ -187,7 +187,7 @@
        "optimize" : 1,
        "connections" : [
 	   { "part" : "ColdPool-block",
-	     "port" : "in"
+	     "port" : "crop"
 	   },
 	   { "part" : "ColdPool-lag",
 	     "port" : "out"
@@ -199,7 +199,7 @@
 	"optimize" : 1,
 	"connections" : [
 	    { "part" : "Copepods-block",
-	      "port" : "in"
+	      "port" : "crop"
 	    },
 	    { "part" : "Copepods-lag",
 	      "port" : "out"
@@ -211,7 +211,7 @@
 	"optimize" : 1,
 	"connections" : [
 	    { "part" : "Krill-block",
-	      "port" : "in"
+	      "port" : "crop"
 	    },
 	    { "part" : "Krill-lag",
 	      "port" : "out"
@@ -222,8 +222,8 @@
        "data_dimension" : "kwargs['npts']",
        "optimize" : 1,
 	"connections" : [
-	    { "part" : "Copepods-block",
-	      "port" : "out"
+	    { "part" : "Survival-block",
+	      "port" : "copepods_crop"
 	    },
 	    { "part" : "Diet_Cop-lag",
 	      "port" : "out"
@@ -234,8 +234,8 @@
        "data_dimension" : "kwargs['npts']",
        "optimize" : 1,
 	"connections" : [
-	    { "part" : "Krill-block",
-	      "port" : "out"
+	    { "part" : "Survival-block",
+	      "port" : "krill_crop"
 	    },
 	    { "part" : "Krill-lag",
 	      "port" : "out"
@@ -247,23 +247,11 @@
        "optimize" : 1,
 	"connections" : [
 	    { "part" : "Survival-block",
-	      "port" : "in_spawners"
+	      "port" : "spawners_crop"
 	    },
 	    { "part" : "Spawners-lag",
 	      "port" : "out"
 	    }
 	]
-    },
-   "Survival-lagvar" : {
-       "data_dimension" : "kwargs['npts']",
-       "optimize" : 1,
-       "connections" : [
-	   { "part" : "Survival-block",
-	     "port" : "out"
-	   },
-	   { "part" : "Survival-lag",
-	     "port" : "out"
-	   }
-       ]
-   }
+    }
 }

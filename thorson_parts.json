@@ -3,6 +3,7 @@
 	"data_dimension" : "kwargs['npts']+2",
 	"ports" : {
 	    "in" : "lambda x: x[2:]",
+	    "crop" : "lambda x,ar=kwargs['ar']: x[ar+2:]",
 	    "out" : "lambda x: x[0]+x[1]*x[2:]",
 	    "pc" : "lambda x: x[1]",
 	    "constant" : "lambda x: x[0]"
@@ -12,6 +13,7 @@
 	"data_dimension" : "kwargs['npts']+4",
 	"ports" : {
 	    "in" : "lambda x: x[4:]",
+	    "crop" : "lambda x,ar=kwargs['ar']: x[ar+4:]", 
 	    "out_copepods" : "lambda x: x[0]+x[1]*x[4:]",
 	    "out_krill" : "lambda x: x[2]+x[3]*x[4:]",
 	    "pc_copepods" : "lambda x: x[1]",
@@ -24,6 +26,7 @@
 	"data_dimension" : "kwargs['npts']+2",
 	"ports" : {
 	    "in" : "lambda x: x[2:]",
+	    "crop" : "lambda x,ar=kwargs['ar']: x[ar+2:]",
 	    "out" : "lambda x: x[0]+x[1]*x[2:]",
 	    "pc" : "lambda x: x[1]",
 	    "constant" : "lambda x: x[0]"
@@ -33,6 +36,7 @@
 	"data_dimension" : "kwargs['npts']+2",
 	"ports" : {
 	    "in" : "lambda x: x[2:]",
+	    "crop" : "lambda x,ar=kwargs['ar']: x[ar+2:]",
 	    "out" : "lambda x: x[0]+x[1]*x[2:]",
 	    "pc" : "lambda x: x[1]",
 	    "constant" : "lambda x: x[0]"
@@ -46,8 +50,11 @@
 	    "pc_spawners" : "lambda x: x[3]",
 	    "constant" : "lambda x: x[0]",
 	    "in_copepods" : "lambda x,npts=kwargs['npts']: x[4:4+npts]",
+	    "copepods_crop" : "lambda x,ar=kwargs['ar']: x[4+ar:4+npts]",
 	    "in_krill" : "lambda x,npts=kwargs['npts']: x[4+npts:2*npts+4]",
+	    "krill_crop" : "lambda x,ar=kwargs['ar']: x[4+npts+ar:2*npts+4]",
 	    "in_spawners" : "lambda x,npts=kwargs['npts']: x[2*npts+4:3*npts+4]",
+	    "spawners_crop" : "lambda x,ar=kwargs['ar']: x[2*npts+4+ar:3*npts+4]",
 	    "out" : "lambda x,npts=kwargs['npts']: x[0]+x[1]*x[4:npts+4]+x[2]*x[npts+4:2*npts+4]+x[3]*x[2*npts+4:3*npts+4]"
 	}
     },
@@ -56,56 +63,49 @@
 	"data_dimension" : "kwargs['npts']+kwargs['ar']",
 	"ports" : {
 	    "in" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: x[ar:]",
-	    "out" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: np.dot(scipy.linalg.toeplitz(np.concatenate(([0],x[0:ar],np.zeros((npts-ar-1,)))),np.zeros((npts,))),x[ar:])"
+	    "out" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: np.dot(scipy.linalg.toeplitz(np.concatenate(([0],x[0:ar],np.zeros((npts-ar-1,)))),np.zeros((npts,))),x[ar:])[ar:]"
 	}
     },
     "ColdPool-lag" : {
 	"data_dimension" : "kwargs['npts']+kwargs['ar']",
 	"ports" : {
 	    "in" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: x[ar:]",
-	    "out" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: np.dot(scipy.linalg.toeplitz(np.concatenate(([0],x[0:ar],np.zeros((npts-ar-1,)))),np.zeros((npts,))),x[ar:])"
+	    "out" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: np.dot(scipy.linalg.toeplitz(np.concatenate(([0],x[0:ar],np.zeros((npts-ar-1,)))),np.zeros((npts,))),x[ar:])[ar:]"
 	}
     },
     "Copepods-lag" : {
 	"data_dimension" : "kwargs['npts']+kwargs['ar']",
 	"ports" : {
 	    "in" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: x[ar:]",
-	    "out" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: np.dot(scipy.linalg.toeplitz(np.concatenate(([0],x[0:ar],np.zeros((npts-ar-1,)))),np.zeros((npts,))),x[ar:])"
+	    "out" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: np.dot(scipy.linalg.toeplitz(np.concatenate(([0],x[0:ar],np.zeros((npts-ar-1,)))),np.zeros((npts,))),x[ar:])[ar:]"
 	}
     },
     "Krill-lag" : {
 	"data_dimension" : "kwargs['npts']+kwargs['ar']",
 	"ports" : {
 	    "in" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: x[ar:]",
-	    "out" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: np.dot(scipy.linalg.toeplitz(np.concatenate(([0],x[0:ar],np.zeros((npts-ar-1,)))),np.zeros((npts,))),x[ar:])"
+	    "out" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: np.dot(scipy.linalg.toeplitz(np.concatenate(([0],x[0:ar],np.zeros((npts-ar-1,)))),np.zeros((npts,))),x[ar:])[ar:]"
 	}
     },
     "Diet_Cop-lag" : {
 	"data_dimension" : "kwargs['npts']+kwargs['ar']",
 	"ports" : {
 	    "in" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: x[ar:]",
-	    "out" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: np.dot(scipy.linalg.toeplitz(np.concatenate(([0],x[0:ar],np.zeros((npts-ar-1,)))),np.zeros((npts,))),x[ar:])"
+	    "out" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: np.dot(scipy.linalg.toeplitz(np.concatenate(([0],x[0:ar],np.zeros((npts-ar-1,)))),np.zeros((npts,))),x[ar:])[ar:]"
 	}
     },
     "Diet_Krill-lag" : {
 	"data_dimension" : "kwargs['npts']+kwargs['ar']",
 	"ports" : {
 	    "in" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: x[ar:]",
-	    "out" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: np.dot(scipy.linalg.toeplitz(np.concatenate(([0],x[0:ar],np.zeros((npts-ar-1,)))),np.zeros((npts,))),x[ar:])"
+	    "out" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: np.dot(scipy.linalg.toeplitz(np.concatenate(([0],x[0:ar],np.zeros((npts-ar-1,)))),np.zeros((npts,))),x[ar:])[ar:]"
 	}
     },
     "Spawners-lag" : {
 	"data_dimension" : "kwargs['npts']+kwargs['ar']",
 	"ports" : {
 	    "in" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: x[ar:]",
-	    "out" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: np.dot(scipy.linalg.toeplitz(np.concatenate(([0],x[0:ar],np.zeros((npts-ar-1,)))),np.zeros((npts,))),x[ar:])"
-	}
-    },
-    "Survival-lag" : {
-	"data_dimension" : "kwargs['npts']+kwargs['ar']",
-	"ports" : {
-	    "in" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: x[ar:]",
-	    "out" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: np.dot(scipy.linalg.toeplitz(np.concatenate(([0],x[0:ar],np.zeros((npts-ar-1,)))),np.zeros((npts,))),x[ar:])"
+	    "out" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: np.dot(scipy.linalg.toeplitz(np.concatenate(([0],x[0:ar],np.zeros((npts-ar-1,)))),np.zeros((npts,))),x[ar:])[ar:]"
 	}
     }
 }
