@@ -96,6 +96,14 @@ print('---')
 for data_name,sheaf_name in names_dict.items():
     print("{} : {}".format(sheaf_name,shf.GetCell(sheaf_name + "-lag").mDataAssignment.mValue[0:ar]))
 
+
+print('')
+print('==========')
+print('All stalks')
+print('---')
+for c in shf.GetCellIndexList():
+    print("{} : {}".format(c,shf.GetCell(c).mDataAssignment.mValue))
+
 years=[startyear + year for year in range(npts)]
 
 for data_name,sheaf_name in names_dict.items():
