@@ -1,0 +1,25 @@
+{
+    "signal" : {
+	"data_dimension" : "kwargs['npts']",
+	"connections" : [
+	    { "part" : "signal-block",
+	      "port" : "in"
+	    },
+	    { "part" : "signal-lag",
+	      "port" : "in"
+	    }
+	]
+    },
+
+   "signal-lagvar" : {
+       "data_dimension" : "kwargs['npts']-kwargs['ar']",
+	"connections" : [
+	    { "part" : "signal-block",
+	      "port" : "out"
+	    },
+	    { "part" : "signal-lag",
+	      "port" : "out"
+	    }
+	]
+    }
+}

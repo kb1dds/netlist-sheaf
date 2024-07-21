@@ -1,0 +1,17 @@
+{
+    "signal-block" : {
+	"data_dimension" : "kwargs['npts']",
+	"ports" : {
+	    "in" : "lambda x: x",
+	    "out" : "lambda x,ar=kwargs['ar']: x[ar:]"
+	}
+    },
+
+    "signal-lag" : {
+	"data_dimension" : "kwargs['npts']+kwargs['ar']",
+	"ports" : {
+	    "in" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: x[ar:]",
+	    "out" : "lambda x,npts=kwargs['npts'],ar=kwargs['ar']: np.dot(scipy.linalg.toeplitz(np.concatenate(([0],x[0:ar],np.zeros((npts-ar-1,)))),np.zeros((npts,))),x[ar:])[ar:]"
+	}
+    }
+}
