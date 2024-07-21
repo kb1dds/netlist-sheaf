@@ -13,15 +13,24 @@ import numpy.polynomial
 from collections import defaultdict
 
 # Basic parameters of the signal
-npts = 12
+npts = 15
 ar = 3
 
 # Construct an autoregressive signal
-roots = np.random.randn(ar) # ... roots of the characteristic polynomial
+
+# We will start with the roots of the characteristic polynomial to ensure they're real
+roots = np.random.randn(ar)
+
+# From the roots, we recover the autoregressive coefficients
 ar_coefs = -numpy.polynomial.Polynomial.fromroots(roots).coef[:-1][::-1]
-#roots = np.roots(np.concatenate(([1],-ar_coefs)))
+
+# This is a copy of the lagging map; it's the correct non-identity restriction in the sheaf
 restriction = scipy.linalg.toeplitz(np.concatenate(([0],ar_coefs,np.zeros((npts-ar-1,)))),np.zeros((npts,)))
-x=roots[0]**np.arange(0,npts)
+
+# Build the signal as a random linear combination of the roots
+x=np.zeros((npts,))
+for i in range(ar):
+    x = x + np.random.randn(1)*roots[i]**np.arange(0,npts)
 
 #print(restriction)
 print('Roots of characteristic equation {}'.format(roots))
@@ -31,7 +40,7 @@ print('Signal is {}'.format(x))
 print('Expected error is {}'.format(np.linalg.norm((x-np.dot(restriction,x))[ar:]))) # Should be small!
 
 print('---')
- 
+
 # Construct the sheaf structure
 parts=json.load(open('ar_parts.json'))
 nets=json.load(open('ar_nets.json'))
@@ -50,22 +59,32 @@ shf.GetCell('signal-lagvar').SetDataAssignment(ps.Assignment("net",x[ar:]))
 print('Optimizing...')
 shf.FuseAssignment()
 
-
 for c in shf.GetCellIndexList():
     print('Value at {} is {}'.format(c,shf.GetCell(c).mDataAssignment.mValue))
     print('  local consistency radius is {}'.format(shf.ComputeStarLocalConsistencyRadius(c)))
 
+print('Drift in signal-lag stalk: {}'.format(np.linalg.norm(shf.GetCell('signal-lag').mDataAssignment.mValue[ar:]-x)))
+
 print('---')
 
-# These should be similar, but are often not... because the optimizer tends to get "lost"
-print('Designed coefficients {}'.format(ar_coefs))
-print('Estimated coefficients {}'.format(shf.GetCell('signal-lag').mDataAssignment.mValue[0:ar]))
+ar_est = shf.GetCell('signal-lag').mDataAssignment.mValue[0:ar]
+roots_est = numpy.polynomial.Polynomial(np.concatenate(([1],-ar_est))[::-1]).roots()
 
-restriction2 = scipy.linalg.toeplitz(np.concatenate(([0],shf.GetCell('signal-lag').mDataAssignment.mValue[0:ar],np.zeros((npts-ar-1,)))),np.zeros((npts,)))
+# The estimated coefficients and should be similar, though may be in a different order
+print('Designed coefficients {}'.format(ar_coefs))
+print('Estimated coefficients {}'.format(ar_est))
+print('Designed roots {}'.format(roots))
+print('Estimated roots {}'.format(roots_est))
+
+# Constructing the only non-identity restriction map for use outside of the Sheaf instance
+restriction2 = scipy.linalg.toeplitz(np.concatenate(([0],ar_est,np.zeros((npts-ar-1,)))),np.zeros((npts,)))
 
 # These should be similar
 print('Consistency radius is {}'.format(shf.ComputeConsistencyRadius()))
 print('Residual is {}'.format(np.linalg.norm((x-np.dot(restriction2,x))[ar:],ord=2)))
+print(np.dot(restriction,x)[ar:])
+print(np.dot(restriction2,x)[ar:])
+print('Norm of difference is {}'.format(np.linalg.norm(np.dot(restriction-restriction2,x)[ar:])))
 
 # Now let's verify the sheaf was actually correct...
 # Putting in the correct values for the AR coefficients should yield a consistency radius
@@ -79,7 +98,5 @@ for c in shf.GetCellIndexList():
     shf.MaximallyExtendCell(c)
 
 print('Consistency radius of global section {}'.format(shf.ComputeConsistencyRadius()))
-if np.abs(shf.ComputeConsistencyRadius()-np.linalg.norm((x-np.dot(restriction,x))[ar:]))/np.linalg.norm((x-np.dot(restriction,x))[ar:])<0.01:
-    print('Correct to within 1 percent')
-else:
+if np.abs(shf.ComputeConsistencyRadius()-np.linalg.norm((x-np.dot(restriction,x))[ar:]))/np.linalg.norm((x-np.dot(restriction,x))[ar:])>0.01:
     print('Global section is in error!')
