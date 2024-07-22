@@ -13,13 +13,13 @@ import numpy.polynomial
 from collections import defaultdict
 
 # Basic parameters of the signal
-npts = 15
+npts = 30
 ar = 3
 
 # Construct an autoregressive signal
 
 # We will start with the roots of the characteristic polynomial to ensure they're real
-roots = np.random.randn(ar)
+roots = 2/np.pi*np.arctan(np.random.randn(ar))
 
 # From the roots, we recover the autoregressive coefficients
 ar_coefs = -numpy.polynomial.Polynomial.fromroots(roots).coef[:-1][::-1]
