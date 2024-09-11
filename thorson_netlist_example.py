@@ -25,14 +25,21 @@ names_dict={
     "log_RperS" : "Survival"
     }
 
+def lag_fcn(npts,ar,x):
+    '''Convenience function for building lag matrices'''
+    if ar:
+        return scipy.linalg.toeplitz(np.concatenate(([0],x[0:ar],np.zeros((npts-ar-1,)))),np.zeros((npts,)))
+    else: # Disable autoregression
+        return np.eye(npts)
+
 # Load the sheaf structure
 parts=json.load(open('thorson_parts.json'))
 nets=json.load(open('thorson_nets.json'))
 
 startyear = 1963
 npts = 61
-ar = 10
-shf = netlist_sheaf.NetlistSheaf(parts,nets,npts=npts,ar=ar)
+ar = 0
+shf = netlist_sheaf.NetlistSheaf(parts,nets,npts=npts,ar=ar,lag_fcn=lag_fcn)
 
 #pos=nx.layout.spring_layout(shf)
 #nx.draw_networkx_labels(shf,pos)
