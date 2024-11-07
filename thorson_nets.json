@@ -91,7 +91,6 @@
     },
     "SeaIce-pc" : {
 	"data_dimension" : 1,
-	"optimize" : 1,
 	"value" : "0.6",
 	"connections" : [
 	    { "part" : "SeaIce-block",
@@ -101,7 +100,6 @@
     },
     "ColdPoolCopepods-pc" : {
 	"data_dimension" : 1,
-	"optimize" : 1,
 	"value" : "1.79",
 	"connections" : [
 	    { "part" : "ColdPool-block",
@@ -111,7 +109,6 @@
     },
     "ColdPoolKrill-pc" : {
 	"data_dimension" : 1,
-	"optimize" : 1,
 	"value" : "0.18",
 	"connections" : [
 	    { "part" : "ColdPool-block",
@@ -121,7 +118,6 @@
     },
     "Copepods-pc" : {
 	"data_dimension" : 1,
-	"optimize" : 1,
 	"value" : "0.29",
 	"connections" : [
 	    { "part" : "Copepods-block",
@@ -131,7 +127,6 @@
     },
     "Krill-pc" : {
 	"data_dimension" : 1,
-	"optimize" : 1,
 	"value" : "0.06",
 	"connections" : [
 	    { "part" : "Krill-block",
@@ -141,7 +136,6 @@
     },
     "DietCop-pc" : {
 	"data_dimension" : 1,
-	"optimize" : 1,
 	"value" : "0.15",
 	"connections" : [
 	    { "part" : "Survival-block",
@@ -151,7 +145,6 @@
     },
     "DietKrill-pc" : {
 	"data_dimension" : 1,
-	"optimize" : 1,
 	"value" : "0.13",
 	"connections" : [
 	    { "part" : "Survival-block",
@@ -161,7 +154,6 @@
     },
     "Spawners-pc" : {
 	"data_dimension" : 1,
-	"optimize" : 1,
 	"value" : "-0.59",
 	"connections" : [
 	    { "part" : "Survival-block",
