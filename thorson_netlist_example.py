@@ -112,6 +112,8 @@ print('==========')
 print('All stalks')
 print('---')
 for c in shf.GetCellIndexList():
+    print("{} : Star local consistency radius: {}".format(c,shf.ComputeStarLocalConsistencyRadius(c)))
+    print("- -")
     print("{} : {}".format(c,shf.GetCell(c).mDataAssignment.mValue))
 
 years=[startyear + year for year in range(npts)]
