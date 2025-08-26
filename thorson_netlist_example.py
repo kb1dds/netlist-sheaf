@@ -133,7 +133,7 @@ years=[startyear + year for year in range(npts)]
 
 for data_name,sheaf_name in names_dict.items():
     plt.figure()
-    plt.plot([x for x,y in measurements[sheaf_name]],[y for x,y in measurements[sheaf_name]],'k',label='DSEM')
+    plt.plot([x for x,y in measurements[sheaf_name]],[y for x,y in measurements[sheaf_name]],'k:',label='DSEM')
     plt.plot(years,shf.GetCell(sheaf_name).mDataAssignment.mValue,'b',label='Sheaf')
     plt.plot([x for x,y in measurements[sheaf_name]],[y for x,y in measurements[sheaf_name]],'+',label='Measurement')
     plt.title(sheaf_name)
