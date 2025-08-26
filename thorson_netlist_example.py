@@ -15,14 +15,14 @@ from collections import defaultdict
 
 # Names in the Thorson data disagree with their paper
 names_dict={
-    "log_seaice" : "SeaIce",
     "log_CP" : "ColdPool",
+    "log_seaice" : "SeaIce",
     "log_Cfall" : "Copepods",
     "log_Esummer" : "Krill",
+    "log_RperS" : "Survival",
+    "SSB" : "Spawners",    
     "log_PercentCop" : "Diet_Cop",
-    "log_PercentEuph" : "Diet_Krill",
-    "SSB" : "Spawners",
-    "log_RperS" : "Survival"
+    "log_PercentEuph" : "Diet_Krill"
     }
 
 def lag_fcn(npts,ar,x):
@@ -131,13 +131,20 @@ for c in shf.GetCellIndexList():
 
 years=[startyear + year for year in range(npts)]
 
+fig = plt.figure()
+axes = fig.subplots(3,3, sharex='all')
+row = 0
+col = 0
 for data_name,sheaf_name in names_dict.items():
-    plt.figure()
-    plt.plot([x for x,y in measurements[sheaf_name]],[y for x,y in measurements[sheaf_name]],'k:',label='DSEM')
-    plt.plot(years,shf.GetCell(sheaf_name).mDataAssignment.mValue,'b',label='Sheaf')
-    plt.plot([x for x,y in measurements[sheaf_name]],[y for x,y in measurements[sheaf_name]],'+',label='Measurement')
-    plt.title(sheaf_name)
-    plt.legend()
-    plt.draw()
+    axes[row,col].plot([x for x,y in dsem_values[sheaf_name]],[y for x,y in dsem_values[sheaf_name]],'k:',label='DSEM')
+    axes[row,col].plot(years,shf.GetCell(sheaf_name).mDataAssignment.mValue,'b',label='Sheaf')
+    axes[row,col].plot([x for x,y in measurements[sheaf_name]],[y for x,y in measurements[sheaf_name]],'*',label='Measurement')
+    axes[row,col].set_title(sheaf_name)
+    axes[row,col].legend()
+
+    row += 1
+    if row > 2:
+        row = 0
+        col += 1
 
 plt.show()
