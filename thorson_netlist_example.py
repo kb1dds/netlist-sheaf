@@ -67,6 +67,21 @@ with open('bering_sea.csv') as fp:
         
         idx = idx + 1
 
+# Load in DSEM predictions
+dsem_values = defaultdict(list)
+with open('dsem_bering_sea.csv') as fp:
+    reader = csv.DictReader(fp, delimiter = ',')
+    idx = 0
+    for row in reader:
+        for data_name,sheaf_name in names_dict.items():
+            if row[data_name] != 'NA':
+                year = startyear+idx
+                datum = str(year) + "-" + sheaf_name
+                value = float(row[data_name])
+
+                dsem_values[sheaf_name].append((year,value))        
+        idx = idx + 1
+
 for c in shf.GetCellIndexList():
     shf.MaximallyExtendCell(c)
 
@@ -118,9 +133,11 @@ years=[startyear + year for year in range(npts)]
 
 for data_name,sheaf_name in names_dict.items():
     plt.figure()
-    plt.plot(years,shf.GetCell(sheaf_name).mDataAssignment.mValue)
-    plt.plot([x for x,y in measurements[sheaf_name]],[y for x,y in measurements[sheaf_name]],'+')
+    plt.plot([x for x,y in measurements[sheaf_name]],[y for x,y in measurements[sheaf_name]],'k',label='DSEM')
+    plt.plot(years,shf.GetCell(sheaf_name).mDataAssignment.mValue,'b',label='Sheaf')
+    plt.plot([x for x,y in measurements[sheaf_name]],[y for x,y in measurements[sheaf_name]],'+',label='Measurement')
     plt.title(sheaf_name)
+    plt.legend()
     plt.draw()
 
 plt.show()
