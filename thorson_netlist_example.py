@@ -7,7 +7,6 @@ import csv
 import json
 import numpy as np
 import scipy.linalg
-import networkx as nx
 import pysheaf as ps
 import matplotlib.pyplot as plt
 import netlist_sheaf
