@@ -3,10 +3,10 @@
 	"data_dimension" : "kwargs['npts']",
 	"optimize" : 1,
 	"connections" : [
-	    { "part" : "SeaIce-block",
+	    { "part" : "ColdPool-block",
 	      "port" : "in"
 	    },
-	    { "part" : "SeaIce-lag",
+	    { "part" : "ColdPool-lag",
 	      "port" : "in"
 	    }
 	]
@@ -15,10 +15,13 @@
 	"data_dimension" : "kwargs['npts']",
 	"optimize" : 1,
 	"connections" : [
-	    { "part" : "SeaIce-block",
+	    { "part" : "ColdPool-block",
 	      "port" : "out"
 	    },
-	    { "part" : "ColdPool-block",
+	    { "part" : "Copepods-block",
+	      "port" : "in"
+	    },
+	    { "part" : "Krill-block",
 	      "port" : "in"
 	    }
 	]
@@ -27,10 +30,10 @@
 	"data_dimension" : "kwargs['npts']",
 	"optimize" : 1,
 	"connections" : [
-	    { "part" : "ColdPool-block",
-	      "port" : "out_copepods"
-	    },
 	    { "part" : "Copepods-block",
+	      "port" : "out"
+	    },
+	    { "part" : "DietCope-block",
 	      "port" : "in"
 	    }
 	]
@@ -39,10 +42,10 @@
 	"data_dimension" : "kwargs['npts']",
 	"optimize" : 1,
 	"connections" : [
-	    { "part" : "ColdPool-block",
-	      "port" : "out_krill"
-	    },
 	    { "part" : "Krill-block",
+	      "port" : "out"
+	    },
+	    { "part" : "DietKrill-block",
 	      "port" : "in"
 	    }
 	]
@@ -51,7 +54,7 @@
 	"data_dimension" : "kwargs['npts']",
 	"optimize" : 1,
 	"connections" : [
-	    { "part" : "Copepods-block",
+	    { "part" : "DietCope-block",
 	      "port" : "out"
 	    },
 	    { "part" : "Survival-block",
@@ -63,7 +66,7 @@
 	"data_dimension" : "kwargs['npts']",
 	"optimize" : 1,
 	"connections" : [
-	    { "part" : "Krill-block",
+	    { "part" : "DietKrill-block",
 	      "port" : "out"
 	    },
 	    { "part" : "Survival-block",
@@ -95,7 +98,7 @@
 	"optimize" : 1,
 	"constraint" : "equality",
 	"connections" : [
-	    { "part" : "SeaIce-block",
+	    { "part" : "ColdPool-block",
 	      "port" : "pc"
 	    }
 	]
@@ -106,8 +109,8 @@
 	"optimize" : 1,
 	"constraint" : "equality",
 	"connections" : [
-	    { "part" : "ColdPool-block",
-	      "port" : "pc_copepods"
+	    { "part" : "Copepods-block",
+	      "port" : "pc"
 	    }
 	]
     },
@@ -117,8 +120,8 @@
 	"optimize" : 1,
 	"constraint" : "equality",
 	"connections" : [
-	    { "part" : "ColdPool-block",
-	      "port" : "pc_krill"
+	    { "part" : "Krill-block",
+	      "port" : "pc"
 	    }
 	]
     },
@@ -128,7 +131,7 @@
 	"optimize" : 1,
 	"constraint" : "equality",
 	"connections" : [
-	    { "part" : "Copepods-block",
+	    { "part" : "DietCope-block",
 	      "port" : "pc"
 	    }
 	]
@@ -139,7 +142,7 @@
 	"optimize" : 1,
 	"constraint" : "equality",
 	"connections" : [
-	    { "part" : "Krill-block",
+	    { "part" : "DietKrill-block",
 	      "port" : "pc"
 	    }
 	]
@@ -182,7 +185,7 @@
        "data_dimension" : "kwargs['npts']-kwargs['ar']",
        "optimize" : 1,
 	"connections" : [
-	    { "part" : "SeaIce-block",
+	    { "part" : "ColdPool-block",
 	      "port" : "crop"
 	    },
 	    { "part" : "SeaIce-lag",
@@ -195,7 +198,7 @@
        "optimize" : 1,
        "connections" : [
 	   { "part" : "ColdPool-block",
-	     "port" : "crop"
+	     "port" : "crop_out"
 	   },
 	   { "part" : "ColdPool-lag",
 	     "port" : "out"
@@ -206,7 +209,7 @@
 	"data_dimension" : "kwargs['npts']-kwargs['ar']",
 	"optimize" : 1,
 	"connections" : [
-	    { "part" : "Copepods-block",
+	    { "part" : "DietCope-block",
 	      "port" : "crop"
 	    },
 	    { "part" : "Copepods-lag",
@@ -218,7 +221,7 @@
 	"data_dimension" : "kwargs['npts']-kwargs['ar']",
 	"optimize" : 1,
 	"connections" : [
-	    { "part" : "Krill-block",
+	    { "part" : "DietKrill-block",
 	      "port" : "crop"
 	    },
 	    { "part" : "Krill-lag",

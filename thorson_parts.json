@@ -1,25 +1,13 @@
 {
-    "SeaIce-block" : {
+    "ColdPool-block" : {
 	"data_dimension" : "kwargs['npts']+2",
 	"ports" : {
 	    "in" : "lambda x: x[2:]",
 	    "crop" : "lambda x,ar=kwargs['ar']: x[ar+2:]",
 	    "out" : "lambda x: x[0]+x[1]*x[2:]",
 	    "pc" : "lambda x: x[1]",
-	    "constant" : "lambda x: x[0]"
-	}
-    },
-    "ColdPool-block" : {
-	"data_dimension" : "kwargs['npts']+4",
-	"ports" : {
-	    "in" : "lambda x: x[4:]",
-	    "crop" : "lambda x,ar=kwargs['ar']: x[ar+4:]", 
-	    "out_copepods" : "lambda x: x[0]+x[1]*x[4:]",
-	    "out_krill" : "lambda x: x[2]+x[3]*x[4:]",
-	    "pc_copepods" : "lambda x: x[1]",
-	    "pc_krill" : "lambda x: x[3]",
-	    "constant_copepods" : "lambda x: x[0]",
-	    "constant_krill" : "lambda x: x[2]"
+	    "constant" : "lambda x: x[0]",
+	    "crop_out" : "lambda x,ar=kwargs['ar']: x[0]+x[1]*x[ar+2:]"
 	}
     },
     "Copepods-block" : {
@@ -33,6 +21,26 @@
 	}
     },
     "Krill-block" : {
+	"data_dimension" : "kwargs['npts']+2",
+	"ports" : {
+	    "in" : "lambda x: x[2:]",
+	    "crop" : "lambda x,ar=kwargs['ar']: x[ar+2:]",
+	    "out" : "lambda x: x[0]+x[1]*x[2:]",
+	    "pc" : "lambda x: x[1]",
+	    "constant" : "lambda x: x[0]"
+	}
+    },
+    "DietCope-block" : {
+	"data_dimension" : "kwargs['npts']+2",
+	"ports" : {
+	    "in" : "lambda x: x[2:]",
+	    "crop" : "lambda x,ar=kwargs['ar']: x[ar+2:]",
+	    "out" : "lambda x: x[0]+x[1]*x[2:]",
+	    "pc" : "lambda x: x[1]",
+	    "constant" : "lambda x: x[0]"
+	}
+    },
+    "DietKrill-block" : {
 	"data_dimension" : "kwargs['npts']+2",
 	"ports" : {
 	    "in" : "lambda x: x[2:]",
