@@ -34,6 +34,7 @@ Each net is named, and has fields:
 * `bounds` (optional),
 * `value` (optional; NB: parsed with `eval()`),
 * `optimize` (optional; anything not integer `0` is `True`; default = `True`),
+* `constraint` (optional; 'equality' -> `pysheaf.CellConstraintType.EQUALITY`, 'inequality' -> `pysheaf.CellConstraintType.INEQUALITY`, anything else is `pysheaf.CellConstraintType.NONE`)
 * `connections`.
 Subsequently, `connections` is a list of dictionaries, each one has a `part` and `port` field, which index into the `parts` dictionary above.
 
@@ -91,6 +92,14 @@ Example
 
             try:
                 self.GetCell(k).mOptimizationCell = (v['optimize']!=0)
+            except KeyError:
+                pass
+
+            try:
+                if v['constraint'] == 'inequality':
+                    self.GetCell(k).mConstraintType = ps.CellConstraintType.INEQUALITY
+                elif v['constraint'] == 'equality':
+                    self.GetCell(k).mConstraintType = ps.CellConstraintType.EQUALITY
             except KeyError:
                 pass
 
