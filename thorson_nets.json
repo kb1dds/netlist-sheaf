@@ -6,7 +6,7 @@
 	    { "part" : "ColdPool-block",
 	      "port" : "in"
 	    },
-	    { "part" : "ColdPool-lag",
+	    { "part" : "SeaIce-lag",
 	      "port" : "in"
 	    }
 	]
@@ -23,6 +23,9 @@
 	    },
 	    { "part" : "Krill-block",
 	      "port" : "in"
+	    },
+	    { "part" : "ColdPool-lag",
+	      "port" : "in"
 	    }
 	]
     },
@@ -34,6 +37,9 @@
 	      "port" : "out"
 	    },
 	    { "part" : "DietCope-block",
+	      "port" : "in"
+	    },
+	    { "part" : "Copepods-lag",
 	      "port" : "in"
 	    }
 	]
@@ -47,6 +53,9 @@
 	    },
 	    { "part" : "DietKrill-block",
 	      "port" : "in"
+	    },
+	    { "part" : "Krill-lag",
+	      "port" : "in"
 	    }
 	]
     },
@@ -59,6 +68,9 @@
 	    },
 	    { "part" : "Survival-block",
 	      "port" : "in_copepods"
+	    },
+	    { "part" : "Diet_Cop-lag",
+	      "port" : "in"
 	    }
 	]
     },
@@ -71,6 +83,9 @@
 	    },
 	    { "part" : "Survival-block",
 	      "port" : "in_krill"
+	    },
+	    { "part" : "Diet_Krill-lag",
+	      "port" : "in"
 	    }
 	]
     },
@@ -80,6 +95,9 @@
 	"connections" : [
 	    { "part" : "Survival-block",
 	      "port" : "in_spawners"
+	    },
+	    { "part" : "Spawners-lag",
+	      "port" : "in"
 	    }
 	]
     },
@@ -248,7 +266,7 @@
 	    { "part" : "Survival-block",
 	      "port" : "krill_crop"
 	    },
-	    { "part" : "Krill-lag",
+	    { "part" : "Diet_Krill-lag",
 	      "port" : "out"
 	    }
 	]
